@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day_3 | 2</title>
+    <style>
+        #bg{
+            background-color: blueviolet;
+            height: 200px;
+            width: 40%;
+            margin: 50px auto;
+            border-radius: 10px;
+        }
+        select{
+            padding: 10px;
+            margin: 50px auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="bg">
+        <center>
+        <select name="" id="titles">
+            <option value="">Titles</option>
+        </select>
+    </center>
+    </div>
+    
+
+    <script src="jquery.js"></script>
+    <script>
+        $(document).ready(function () {
+            let $items = $('#titles');
+            $.ajax({
+                url: "https://jsonplaceholder.typicode.com/todos",
+                type: "GET",
+                success: function (response, status) {
+                    $.each(response, function (i, value) {
+                        $items.append('<option>' + value.title + '</option>');
+                    })
+                }
+            })
+        })
+    </script>
+</body>
+
+</html>

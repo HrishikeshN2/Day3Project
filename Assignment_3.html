@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day_3 | 3</title>
+    <style>
+        #bg {
+            background-color: blueviolet;
+            height: 2100px;
+            width: 80%;
+            margin: 50px auto;
+            border-radius: 10px;
+            color: #fff;
+        }
+        #left{
+            float: left;
+            padding: 20px;
+        }
+        #right{
+            float: right;
+            padding: 20px;
+        }
+        input{
+            padding: 10px;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="bg">
+        <div id="left">
+            <h2>Completed Todos</h2>
+            <input type="text" list="df" placeholder="Completed Todos">
+            <datalist id="df"></datalist>
+        </div>
+        <div id="right">
+            <h2>Non Completed Todos</h2>
+            <ol id="list"></ol>
+        </div>
+    </div>
+
+
+    <script src="jquery.js"></script>
+    <script>
+        $(document).ready(function () {
+            let $items = $('#df');
+            let $items1 = $('#list');
+            $.ajax({
+                url: "https://jsonplaceholder.typicode.com/todos",
+                type: "GET",
+                success: function (response) {
+                    $.each(response, function (i, value) {
+                        if (value.completed == true) {
+                            $items.append('<option>' + value.title + '</option>');
+                        }
+                        else {
+                            $items1.append('<li>' + value.title + '</li>');
+                        }
+                    })
+                }
+            })
+        })
+    </script>
+</body>
+
+</html>

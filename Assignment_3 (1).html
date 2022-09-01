@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day_5 | 3</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+        *{
+            font-family: 'Poppins', sans-serif
+        }
+        #bg{
+            background-color: blueviolet;
+            height: 55vh;
+            width: 40%;
+            box-sizing: border-box;
+            margin: 20px auto;
+            padding: 20px 50px;
+            border-radius: 10px;
+            color: #fff;
+            font-size: 16px;
+        }
+        #err{
+            margin-top: 20px;
+        }
+        input{
+            padding: 5px;
+            width: 70%;
+        }
+        button{
+            padding: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="bg">
+        <input type="text" id="userid"><br><br>
+        <button id="btn">Get Details</button>
+        <div id="details">
+            <p><strong>Username: </strong><span id="uname"></span></p>
+            <p><strong>Name: </strong><span id="name"></span></p>
+            <p><strong>Emailid: </strong><span id="email"></span></p>
+            <p><strong>Phone: </strong><span id="phone"></span></p>
+            <p><strong>Website: </strong><span id="website"></span></p><br><br>
+        </div>
+        <span id="err">Does not Exist</span>
+    </div>
+
+    <script>
+        document.getElementById('details').style.display = 'none';
+        document.getElementById('err').style.display = 'none';
+
+        const uid = document.getElementById('userid');
+        document.getElementById('btn').addEventListener('click', function () {
+            if (uid.value >= 1 && uid.value <= 10) {
+                document.getElementById('details').style.display = 'block';
+                document.getElementById('err').style.display = 'none';
+
+                fetch(`https://jsonplaceholder.typicode.com/users/${uid.value}`)
+                    .then(function (response) {
+                        return response.json()
+                    })
+                    .then(function (data) {
+                        let username = document.getElementById('uname');
+                        let name = document.getElementById('name');
+                        let email = document.getElementById('email');
+                        let phone = document.getElementById('phone');
+                        let website = document.getElementById('website');
+
+                        username.textContent = data.username;
+                        name.textContent = data.name;
+                        email.textContent = data.email;
+                        phone.textContent = data.phone;
+                        website.textContent = data.website;
+                    })
+            }
+
+            else {
+                document.getElementById('details').style.display = 'none';
+                document.getElementById('err').style.display = 'block';
+            }
+        })
+    </script>
+</body>
+
+</html>
